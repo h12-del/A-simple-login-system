@@ -1,0 +1,350 @@
+/* style.css - 精简统一版（管理员表格修复版） */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Microsoft YaHei', sans-serif;
+}
+
+/* 动态浅色背景动画 */
+body {
+    min-height: 100vh;
+    background: linear-gradient(120deg, #f9f3e6, #e0f0ff, #f2e9ff, #fff0e0);
+    background-size: 300% 300%;
+    animation: breatheGradient 14s ease infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+}
+@keyframes breatheGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 标题样式 */
+h2, h3, .form-title {
+    text-align: center;
+    font-weight: 600;
+    color: #1e2a3e;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.2px;
+}
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; margin-top: 1rem; }
+
+/* ===================== 左右横排布局（欢迎页） ===================== */
+.welcome-container {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+.welcome-container > .pwd-area,
+.welcome-container > .board-area {
+    flex: 1;
+    min-width: 400px;
+}
+@media (max-width: 900px) {
+    .welcome-container {
+        flex-direction: column;
+    }
+}
+
+/* 卡片式表单 / 模块 */
+form, .board-area, .pwd-area, .welcome-area, .card-panel {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(14px);
+    border-radius: 32px;
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+    padding: 2rem;
+    width: 100%;
+    max-width: 480px;
+    margin: 1rem auto;
+    border: 1px solid rgba(255,255,240,0.6);
+    transition: all 0.2s ease;
+}
+.welcome-area, .board-area, .pwd-area, .admin-container {
+    max-width: 1000px;
+    width: 100%;
+}
+
+/* 输入框样式 */
+label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #1f2b38;
+    display: block;
+    margin-top: 0.8rem;
+    margin-bottom: 0.3rem;
+}
+input, textarea, select {
+    width: 100%;
+    padding: 12px 16px;
+    background: #ffffffdd;
+    border: 1px solid #cddfe7;
+    border-radius: 28px;
+    font-size: 1rem;
+    transition: 0.2s;
+    outline: none;
+    color: #111;
+}
+input:focus, textarea:focus, select:focus {
+    border-color: #8a6eff;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(138, 110, 255, 0.15);
+}
+textarea {
+    border-radius: 24px;
+    resize: vertical;
+}
+
+/* 按钮统一风格 */
+button, .btn, input[type="submit"], .btn-red, .btn-green, .btn-blue, .btn-orange {
+    background: #6c5ce7;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 40px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    display: inline-block;
+    margin-top: 12px;
+    width: auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+button:hover, .btn:hover, input[type="submit"]:hover {
+    background: #5849c4;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -8px #6c5ce7;
+}
+.btn-red { background: #e65c5c; }
+.btn-red:hover { background: #c74646; }
+.btn-green { background: #3db87e; }
+.btn-green:hover { background: #2d9a66; }
+.btn-blue { background: #4c8bff; }
+.btn-blue:hover { background: #3a6fd1; }
+.btn-orange { background: #f39c12; }
+.btn-orange:hover { background: #e67e22; }
+
+/* 🔥 表格样式（管理员） - 修复按钮布局 */
+table {
+    width: 100%;
+    background: rgba(255,255,245,0.7);
+    backdrop-filter: blur(4px);
+    border-radius: 28px;
+    overflow: hidden;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+}
+th, td {
+    padding: 12px 8px;
+    text-align: center;
+    border-bottom: 1px solid #dce5ec;
+    vertical-align: middle;
+}
+th {
+    background: #f0f4f9;
+    font-weight: 700;
+    color: #2c3e50;
+}
+table tr td {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #1a2a3a;
+    font-weight: 500;
+}
+table tr:hover td {
+    background-color: rgba(200, 220, 250, 0.6);
+}
+
+/* 🔥 表格按钮修复（关键） */
+table td:last-child {
+    white-space: nowrap;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+table td form {
+    display: inline-block;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+table td button {
+    margin: 0 !important;
+    padding: 6px 14px !important;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    min-width: 60px;
+}
+table td button:first-child {
+    background: #4c8bff !important;
+}
+table td button:last-child {
+    background: #dc3545 !important;
+    border: none !important;
+    color: white !important;
+}
+table td button:last-child:hover {
+    background: #b02a37 !important;
+}
+
+/* 留言卡片 */
+.message-item {
+    background: rgba(245, 248, 250, 0.8);
+    border-radius: 26px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #6c5ce7;
+    transition: 0.1s;
+}
+
+/* 提示消息 */
+.error-msg, .msg, .tip, .msg-tip {
+    text-align: center;
+    color: #cc5a2a;
+    background: #fff1e6;
+    border-radius: 60px;
+    padding: 8px 18px;
+    font-size: 0.9rem;
+    max-width: 480px;
+    margin: 0.5rem auto;
+}
+.tip, .msg-tip {
+    background: rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(8px);
+    color: #ffebc2 !important;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 40px;
+    padding: 10px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 90%;
+}
+
+/* 链接 */
+a {
+    text-decoration: none;
+    color: #4b3cc9;
+    font-weight: 500;
+}
+a:hover {
+    text-decoration: underline;
+    color: #2c1f9e;
+}
+
+/* 复选框 */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    transform: translateY(2px);
+    accent-color: #6c5ce7;
+}
+
+/* 文件上传 */
+input[type="file"] {
+    background: #ffffffaa;
+    border: 1px solid #bcd0df;
+    padding: 10px;
+}
+form[enctype="multipart/form-data"] {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap !important;
+    margin: 1rem 0;
+}
+form[enctype="multipart/form-data"] input[type="file"] {
+    flex: 2;
+    min-width: 200px;
+}
+form[enctype="multipart/form-data"] button {
+    flex: 0 0 auto;
+    margin-top: 0 !important;
+}
+
+/* 管理员弹窗样式 */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+}
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+.modal-close:hover {
+    color: #000;
+}
+
+/* 卡片面板 */
+.card-panel {
+    background: rgba(255,255,250,0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 1.5rem;
+    margin: 1rem auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    max-width: 1000px;
+    width: 100%;
+}
+.preview-area {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+.preview-area img {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+/* 🔥 表单提交按钮统一居中（修复重置密码） */
+form input[type="submit"],
+form button[type="submit"] {
+    display: block !important;
+    margin: 20px auto !important;
+    width: fit-content !important;
+    min-width: 120px !important;
+}
+
+/* 响应式 */
+@media (max-width: 580px) {
+    form, .board-area, .pwd-area, .welcome-area {
+        padding: 1.5rem;
+    }
+    h2 { font-size: 1.7rem; }
+    body { padding: 1rem; }
+    button, .btn { padding: 8px 18px; }
+}
