@@ -1,0 +1,935 @@
+/* ===================== 全局重置与基础样式 ===================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* 梵高星空主题色系 */
+    --primary-color: #1a237e;
+    --primary-dark: #0d47a1;
+    --primary-light: #3949ab;
+    --secondary-color: #00897b;
+    --accent-color: #ffd54f;
+    
+    /* 功能色 - 温暖色调 */
+    --success-color: #66bb6a;
+    --danger-color: #ef5350;
+    --warning-color: #ffa726;
+    --info-color: #42a5f5;
+    
+    /* 中性色 - 暖白基调 */
+    --text-primary: #1a1a2e;
+    --text-secondary: #2d2d44;
+    --text-light: #4a4a6a;
+    --bg-primary: #fffde7;
+    --bg-secondary: #fff9c4;
+    --bg-tertiary: #fff59d;
+    --border-color: #ffe082;
+    
+    /* 阴影 - 金色光晕 */
+    --shadow-sm: 0 1px 3px rgba(255, 213, 79, 0.2);
+    --shadow-md: 0 4px 6px rgba(255, 213, 79, 0.25);
+    --shadow-lg: 0 10px 25px rgba(26, 35, 126, 0.3);
+    --shadow-xl: 0 20px 40px rgba(26, 35, 126, 0.4);
+    
+    /* 圆角 */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+    --radius-full: 9999px;
+    
+    /* 过渡 */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 30%, #b2dfdb 60%, #fff8e1 100%);
+    background-size: 400% 400%;
+    animation: gradientFlow 20s ease infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3rem 2rem;
+    color: var(--text-primary);
+    line-height: 1.8;
+}
+
+@keyframes gradientFlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ===================== 标题样式 ===================== */
+h2, h3, .form-title {
+    text-align: center;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 10px rgba(26, 35, 126, 0.2);
+}
+
+h2 { 
+    font-size: 2.75rem; 
+    margin-bottom: 2.5rem;
+}
+
+h3 { 
+    font-size: 1.5rem; 
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    text-shadow: none;
+    text-align: left;
+}
+
+.admin-container h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* ===================== 欢迎页面布局 ===================== */
+.welcome-container {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.welcome-container > .pwd-area,
+.welcome-container > .board-area {
+    flex: 1;
+    min-width: 400px;
+}
+
+@media (max-width: 900px) {
+    .welcome-container {
+        flex-direction: column;
+    }
+}
+
+/* ===================== 表单卡片样式 ===================== */
+form {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(25px);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 8px 32px rgba(26, 35, 126, 0.15);
+    padding: 3.5rem 3rem !important;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    border: 1px solid rgba(26, 35, 126, 0.1);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+form:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(26, 35, 126, 0.2);
+}
+
+/* 管理员页面表单不需要hover效果 */
+.admin-left form:hover,
+.admin-right form:hover {
+    transform: none;
+    box-shadow: 0 8px 32px rgba(26, 35, 126, 0.15);
+}
+
+/* ===================== 通用卡片面板 ===================== */
+.board-area, .pwd-area, .welcome-area, .card-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(25px);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 8px 32px rgba(26, 35, 126, 0.12);
+    padding: 2rem 2.5rem !important;
+    width: 100%;
+    max-width: 520px;
+    margin: 1.5rem auto !important;
+    border: 1px solid rgba(26, 35, 126, 0.08);
+    transition: all var(--transition-base);
+}
+
+/* 包含表格的卡片面板去除背景 */
+.card-panel:has(table) {
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    border: none;
+    padding: 0 !important;
+    max-width: 100%;
+}
+
+.welcome-area, .board-area, .pwd-area, .admin-container {
+    max-width: 1200px;
+}
+
+/* ===================== 管理员页面布局 ===================== */
+.admin-container {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.admin-left, .admin-right {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-left .card-panel,
+.admin-right .card-panel {
+    max-width: 100%;
+    margin: 0 !important;
+}
+
+.admin-left form,
+.admin-right form {
+    max-width: 100%;
+    padding: 2rem 1.5rem !important;
+}
+
+/* 表单组样式 */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    margin-top: 0;
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 16px;
+    font-size: 1rem;
+}
+
+.form-actions {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.form-actions button {
+    min-width: 120px;
+}
+
+/* 文件上传样式 */
+input[type="file"] {
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 8px 16px;
+    margin-right: 12px;
+    border: none;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+input[type="file"]::file-selector-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
+}
+
+/* 预览区域样式 */
+.preview-area {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(26, 35, 126, 0.1);
+}
+
+.preview-title {
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.preview-item {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.preview-item img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 12px rgba(26, 35, 126, 0.15);
+}
+
+.preview-path {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+    word-break: break-all;
+}
+
+@media (max-width: 900px) {
+    .admin-container {
+        flex-direction: column;
+    }
+    
+    .admin-left, .admin-right {
+        width: 100%;
+    }
+}
+
+/* ===================== 输入框标签文字样式 ===================== */
+label {
+    /* 文字加粗 */
+    font-weight: 600;
+    /* 标签字体大小 */
+    font-size: 1rem;
+    /* 标签文字深色 - 深蓝 */
+    color: var(--primary-dark);
+    /* 独占一行显示 */
+    display: block;
+    /* 标签顶部外边距 */
+    margin-top: 1.2rem;
+    /* 标签底部外边距，贴近输入框 */
+    margin-bottom: 0.5rem;
+}
+
+/* ===================== 输入框 / 文本域 / 下拉选择框 统一样式 ===================== */
+input, textarea, select {
+    /* 宽度铺满父容器 */
+    width: 100%;
+    /* 输入框上下左右内边距 */
+    padding: 14px 18px;
+    /* 浅色背景 */
+    background: rgba(255, 255, 255, 0.95);
+    /* 柔和边框 */
+    border: 1px solid rgba(26, 35, 126, 0.2);
+    /* 大圆角统一风格 */
+    border-radius: 28px;
+    /* 输入文字字号 */
+    font-size: 1.05rem;
+    /* 选中、hover状态过渡动画 */
+    transition: 0.25s;
+    /* 去除浏览器默认聚焦外边框 */
+    outline: none;
+    /* 输入框内文字颜色 - 深蓝 */
+    color: var(--primary-dark);
+}
+
+/* 输入框获得鼠标焦点时的样式变化 */
+input:focus, textarea:focus, select:focus {
+    /* 边框变为主色 */
+    border-color: var(--primary-color);
+    /* 背景变为纯白 */
+    background: #ffffff;
+    /* 外围柔和光晕，强化聚焦状态 */
+    box-shadow: 0 0 0 4px rgba(26, 35, 126, 0.1), 0 4px 12px rgba(26, 35, 126, 0.15);
+}
+
+/* 多行文本域单独设置 */
+textarea {
+    /* 圆角比普通输入框稍小 */
+    border-radius: 24px;
+    /* 只允许垂直拉伸，禁止左右拉宽 */
+    resize: vertical;
+}
+
+/* ===================== 全局按钮统一样式 ===================== */
+button, .btn, input[type="submit"], .btn-red, .btn-green, .btn-blue, .btn-orange {
+    /* 主按钮背景 - 深蓝到蓝绿渐变 */
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    /* 去除默认边框 */
+    border: none;
+    /* 按钮内边距控制大小 */
+    padding: 14px 28px;
+    /* 按钮文字大小 */
+    font-size: 1.05rem;
+    /* 文字加粗 */
+    font-weight: 600;
+    /* 超大圆角胶囊按钮 */
+    border-radius: 40px;
+    /* 按钮文字白色 */
+    color: white;
+    /* 鼠标悬浮变成小手可点击样式 */
+    cursor: pointer;
+    /* 所有属性平滑过渡 */
+    transition: all 0.25s;
+    /* 文字居中 */
+    text-align: center;
+    /* 行内块元素，可设置宽高边距 */
+    display: inline-block;
+    /* 按钮顶部外边距 */
+    margin-top: 1.5rem;
+    /* 宽度自适应文字内容 */
+    width: auto;
+    /* 柔和阴影增加立体感 */
+    box-shadow: 0 4px 12px rgba(26, 35, 126, 0.25);
+}
+
+/* 按钮鼠标悬浮效果 */
+button:hover, .btn:hover, input[type="submit"]:hover {
+    /* 背景色加深 */
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #00695c 100%);
+    /* 按钮轻微上浮3px */
+    transform: translateY(-3px);
+    /* 放大阴影，突出悬浮感 */
+    box-shadow: 0 8px 20px rgba(26, 35, 126, 0.35);
+}
+
+/* 红色按钮：删除、危险操作 */
+.btn-red { background: linear-gradient(135deg, #ef5350 0%, #c62828 100%); }
+.btn-red:hover { background: linear-gradient(135deg, #ff7043 0%, #d32f2f 100%); }
+
+/* 绿色按钮：新增、确认、成功 */
+.btn-green { background: linear-gradient(135deg, #66bb6a 0%, #388e3c 100%); }
+.btn-green:hover { background: linear-gradient(135deg, #81c784 0%, #4caf50 100%); }
+
+/* 蓝色按钮：编辑、修改 */
+.btn-blue { background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%); }
+.btn-blue:hover { background: linear-gradient(135deg, var(--accent-color) 0%, #ffb300 100%); }
+
+/* 橙色按钮：警告、普通功能操作 */
+.btn-orange { background: linear-gradient(135deg, #ffa726 0%, #f57c00 100%); }
+.btn-orange:hover { background: linear-gradient(135deg, #ffb74d 0%, #ff9800 100%); }
+
+/* ===================== 表格样式 ===================== */
+table {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border-collapse: collapse;
+    margin: 1.5rem 0 !important;
+    box-shadow: 0 4px 16px rgba(26, 35, 126, 0.1);
+    font-size: 0.95rem;
+}
+
+/* 移除表格容器的白色背景 */
+.card-panel:has(table),
+.admin-container table,
+div.card-panel > table {
+    background: transparent;
+}
+
+th, td {
+    padding: 12px 10px !important;
+    text-align: center;
+    border-bottom: 1px solid rgba(26, 35, 126, 0.08);
+    vertical-align: middle;
+}
+
+th {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-shadow: none;
+}
+
+table tr td {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: background-color var(--transition-fast);
+}
+
+table tr:hover td {
+    background-color: rgba(26, 35, 126, 0.06);
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
+
+/* 表格操作列 */
+table td:last-child {
+    white-space: nowrap;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+table td form {
+    display: inline-block;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+}
+
+table td button {
+    margin: 0 !important;
+    padding: 6px 16px !important;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.85rem;
+    min-width: 60px;
+    margin-top: 0 !important;
+}
+
+table td button:first-child {
+    background: linear-gradient(135deg, #4299e1, #3182ce) !important;
+}
+
+table td button:last-child {
+    background: linear-gradient(135deg, #f56565, #e53e3e) !important;
+    border: none !important;
+    color: white !important;
+}
+
+table td button:last-child:hover {
+    box-shadow: 0 8px 20px rgba(245, 101, 101, 0.4) !important;
+}
+
+/* ===================== 留言卡片 ===================== */
+.message-item {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.25rem;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 4px 12px rgba(26, 35, 126, 0.1);
+    transition: all var(--transition-base);
+}
+
+.message-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 8px 24px rgba(26, 35, 126, 0.15);
+}
+
+/* ===================== 提示信息样式 ===================== */
+.error-msg, .msg, .tip, .msg-tip {
+    text-align: center;
+    color: #c53030;
+    background: linear-gradient(135deg, #fff5f5, #fed7d7);
+    border-radius: var(--radius-full);
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    max-width: 500px;
+    margin: 1rem auto;
+    font-weight: 500;
+    border: 1px solid rgba(197, 48, 48, 0.2);
+}
+
+.tip, .msg-tip {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95)) !important;
+    backdrop-filter: blur(10px);
+    color: white !important;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    box-shadow: var(--shadow-lg);
+    max-width: 90%;
+}
+
+/* ===================== 链接样式 ===================== */
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width var(--transition-base);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+/* ===================== 复选框样式 ===================== */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    transform: translateY(2px);
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+/* ===================== 文件上传样式 ===================== */
+input[type="file"] {
+    background: var(--bg-secondary);
+    border: 2px dashed var(--border-color);
+    padding: 12px;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+input[type="file"]:hover {
+    border-color: var(--primary-color);
+    background: rgba(102, 126, 234, 0.05);
+}
+
+form[enctype="multipart/form-data"] {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    flex-wrap: wrap !important;
+    margin: 1.5rem 0;
+}
+
+form[enctype="multipart/form-data"] input[type="file"] {
+    flex: 2;
+    min-width: 220px;
+}
+
+form[enctype="multipart/form-data"] button {
+    flex: 0 0 auto;
+    margin-top: 0 !important;
+}
+
+/* ===================== 弹窗样式 ===================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeIn var(--transition-base);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 16px 48px rgba(26, 35, 126, 0.2);
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    animation: slideUp var(--transition-base);
+    border: 1px solid rgba(26, 35, 126, 0.1);
+}
+
+@keyframes slideUp {
+    from { 
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===================== 回复样式 ===================== */
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(26, 35, 126, 0.1);
+}
+
+.message-user {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.message-time {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.message-content {
+    padding: 0.5rem 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.message-actions {
+    margin-top: 0.5rem;
+}
+
+/* 回复列表 */
+.reply-list {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--primary-color);
+}
+
+.reply-item {
+    background: rgba(102, 126, 234, 0.05);
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 0.5rem;
+    transition: all var(--transition-fast);
+}
+
+.reply-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.reply-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+.reply-user {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+.reply-time {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.reply-content {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* 回复表单 */
+.reply-form-container {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(26, 35, 126, 0.2);
+}
+
+.reply-form {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-end;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    max-width: 100% !important;
+}
+
+.reply-form textarea {
+    flex: 1;
+    min-height: 60px;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(26, 35, 126, 0.2);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    resize: vertical;
+    transition: all var(--transition-fast);
+    font-family: inherit;
+}
+
+.reply-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn-reply {
+    padding: 0.6rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.btn-reply:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all var(--transition-fast);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.modal-close:hover {
+    color: var(--danger-color);
+    background: rgba(245, 101, 101, 0.1);
+}
+
+/* ===================== 图片预览区域 ===================== */
+.preview-area {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.preview-area.show {
+    display: block;
+}
+
+.preview-area img {
+    display: block;
+    margin: 1rem 0;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-base);
+}
+
+.preview-area img:hover {
+    transform: scale(1.02);
+}
+
+/* ===================== 表单提交按钮居中 ===================== */
+form input[type="submit"],
+form button[type="submit"] {
+    display: block !important;
+    margin: 24px auto 0 !important;
+    width: fit-content !important;
+    min-width: 140px !important;
+}
+
+/* ===================== 响应式设计 ===================== */
+@media (max-width: 768px) {
+    body {
+        padding: 1.5rem 1rem;
+    }
+    
+    h2 { 
+        font-size: 2rem; 
+    }
+    
+    h3 { 
+        font-size: 1.5rem; 
+    }
+    
+    form, .board-area, .pwd-area, .welcome-area {
+        padding: 2rem 1.5rem !important;
+    }
+    
+    .card-panel {
+        padding: 1.5rem 1rem !important;
+    }
+    
+    table th, table td {
+        padding: 12px 8px !important;
+        font-size: 0.9rem;
+    }
+    
+    button, .btn {
+        padding: 12px 24px;
+    }
+}
+
+@media (max-width: 580px) {
+    form, .board-area, .pwd-area, .welcome-area {
+        padding: 1.5rem !important;
+        border-radius: var(--radius-lg);
+    }
+    
+    h2 { 
+        font-size: 1.75rem; 
+    }
+    
+    body { 
+        padding: 1rem; 
+    }
+    
+    button, .btn { 
+        padding: 10px 20px; 
+        font-size: 0.95rem;
+    }
+    
+    table td button {
+        padding: 6px 14px !important;
+        font-size: 0.8rem;
+        min-width: 60px;
+    }
+    
+    .welcome-container > .pwd-area,
+    .welcome-container > .board-area {
+        min-width: 100%;
+    }
+}
+
+/* ===================== 滚动条美化 ===================== */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* ===================== 选中文本样式 ===================== */
+::selection {
+    background: rgba(102, 126, 234, 0.3);
+    color: var(--text-primary);
+}
+
+/* ===================== 加载动画 ===================== */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
